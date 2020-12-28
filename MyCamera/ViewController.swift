@@ -36,6 +36,17 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
+        // 表示画像をアンラップして画像取得
+        if let shareImage = pictureImage.image {
+            // activityViewControllerに渡す配列を作成
+            let shareItems = [shareImage]
+            // activityViewControllerに画像を渡しインスタンス生成
+            let controller = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+            // iPadが落ちてしまう対策
+            controller.popoverPresentationController?.sourceView = view
+            // 表示
+            present(controller, animated: true, completion: nil)
+        }
     }
     
     // 撮影が終わった際によばれるdelegateメソッド

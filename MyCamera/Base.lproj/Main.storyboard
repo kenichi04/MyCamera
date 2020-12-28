@@ -24,18 +24,22 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="EBb-JC-7Hn"/>
                                 </constraints>
-                                <state key="normal" title="カメラを起動する"/>
+                                <state key="normal" title="カメラを起動する">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="cameraButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yG7-9L-DXw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qxd-tl-13j">
                                 <rect key="frame" x="16" y="802" width="382" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="npM-m3-heH"/>
                                 </constraints>
-                                <state key="normal" title="SNSに投稿する"/>
+                                <state key="normal" title="SNSに投稿する">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="shareButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Op-dw-uPp"/>
                                 </connections>

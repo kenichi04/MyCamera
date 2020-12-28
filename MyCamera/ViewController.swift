@@ -17,6 +17,45 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
 
     @IBAction func cameraButtonAction(_ sender: Any) {
+        // アラートダイアログでカメラかフォトライブラリーか選択できるようにする
+        let alertController = UIAlertController(title: "確認", message: "選択してください", preferredStyle: .actionSheet)
+        
+        // カメラが利用可能かチェック
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            // カメラの選択肢
+            let cameraAction = UIAlertAction(title: "カメラ", style: .default, handler: { (action) in
+                // カメラ起動（選択後の処理）
+                let imagePickerController = UIImagePickerController()
+                imagePickerController.sourceType = .camera
+                imagePickerController.delegate = self
+                self.present(imagePickerController, animated: true, completion: nil)
+            })
+            alertController.addAction(cameraAction)
+        }
+        
+        // フォトライブラリーが利用可能かチェック
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            // フォトライブラリーの選択肢
+            let photoLibraryAction = UIAlertAction(title: "フォトライブラリー", style: .default, handler: { (action) in
+                //フォトライブラリー起動（選択後の処理）
+                let imagePickerController = UIImagePickerController()
+                imagePickerController.sourceType = .photoLibrary
+                imagePickerController.delegate = self
+                self.present(imagePickerController, animated: true, completion: nil)
+            })
+            alertController.addAction(photoLibraryAction)
+        }
+        
+
+        // キャンセルの選択肢
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        // iPadで落ちてしまう対策
+        alertController.popoverPresentationController?.sourceView = view
+        // 選択肢を表示
+        present(alertController, animated: true, completion: nil)
+        
+        /*
         // カメラが利用可能かチェック
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             print("カメラは利用できます")
@@ -33,6 +72,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         } else {
             print("カメラは利用できません")
         }
+        */
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {

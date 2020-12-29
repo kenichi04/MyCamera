@@ -15,6 +15,21 @@ class EffectViewController: UIViewController {
     // エフェクト前画像、前の画面より画像を設定
     var originalImage: UIImage?
     
+    // エフェクト（フィルタ）の配列
+    let filterArray = ["CIPhotoEffectMono",
+                        "CIPhotoEffectChrome",
+                        "CIPhotoEffectFade",
+                        "CIPhotoEffectInstant",
+                        "CIPhotoEffectNoir",
+                        "CIPhotoEffectProcess",
+                        "CIPhotoEffectTonal",
+                        "CIPhotoEffectTransfer",
+                        "CISepiaTone",
+                      ]
+    // 選択中のエフェクト添え字
+    var filterSelectNumber = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,8 +52,15 @@ class EffectViewController: UIViewController {
     @IBAction func effectButtonAction(_ sender: Any) {
         // エフェクト前画像をアンラップして取得
         if let image = originalImage {
-            // フィルター名指定（今回はモノクロ指定）
-            let filterName = "CIPhotoEffectMono"
+            // フィルター名指定
+            let filterName = filterArray[filterSelectNumber]
+            // 次に選択するフィルターに更新しておく
+            filterSelectNumber += 1
+            // 配列の最後の要素まできたら、0に戻す
+            if filterSelectNumber == filterArray.count {
+                filterSelectNumber = 0
+            }
+            
             // 元の画像の回転角度を取得しておく/ 縦で撮影したのか、横で撮影したのかの情報 / 型変換の際に回転角度の情報は失われる
             let rotate = image.imageOrientation
             // UIImageからCIImageに変換

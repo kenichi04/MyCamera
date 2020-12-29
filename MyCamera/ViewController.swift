@@ -11,6 +11,9 @@ import UIKit
 class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @IBOutlet weak var pictureImage: UIImageView!
     
+    // 遷移先の画面に渡す画像を格納
+    var captureImage: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -55,26 +58,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         // 選択肢を表示
         present(alertController, animated: true, completion: nil)
         
-        /*
-        // カメラが利用可能かチェック
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            print("カメラは利用できます")
-            
-            // imagePickerControllerインスタンス生成
-            let imagePickerController = UIImagePickerController()
-            // sourceTypeにカメラを設定 / 写真の取得先
-            imagePickerController.sourceType = .camera
-            // delegate設定
-            imagePickerController.delegate = self
-            // モーダルビューで表示
-            present(imagePickerController, animated: true, completion: nil)
-            
-        } else {
-            print("カメラは利用できません")
-        }
-        */
     }
     
+    /*
     @IBAction func shareButtonAction(_ sender: Any) {
         // 表示画像をアンラップして画像取得
         if let shareImage = pictureImage.image {
@@ -88,13 +74,31 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             present(controller, animated: true, completion: nil)
         }
     }
+    */
     
     // 撮影が終わった際によばれるdelegateメソッド
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // 撮影した画像をpictureImage変数に代入
-        pictureImage.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+//        pictureImage.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         // モーダルビューを閉じる（今回はカメラ画面）/ present()メソッドで開いていた画面
-        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
+        
+        // 撮影した画像を格納
+        captureImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        // モーダルを閉じ、画面遷移する
+        dismiss(animated: true, completion: {
+            // エフェクト画面に遷移
+            self.performSegue(withIdentifier: "showEffectView", sender: nil)
+        })
+    }
+    
+    // segueによる遷移時に呼ばれる
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // 遷移先のviewControllerのインスタンスを格納
+        if let nextViewController = segue.destination as? EffectViewController {
+            // 遷移先のoriginalImage変数に代入
+            nextViewController.originalImage = captureImage
+        }
     }
     
     
